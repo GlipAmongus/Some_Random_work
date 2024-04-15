@@ -4,7 +4,8 @@
 #include <stdbool.h>
 
 #define SIZE 256
-#define N 16
+#define UPPER 1025
+#define N 128
 
 void ShellSort(int a[]);
 void QuickSort(int b[], int first, int last);
@@ -14,6 +15,7 @@ int extreme_points(int const ARRAY[]);
 void Question1(int a[], int b[]);
 void Question2(int const A[], int const B[], int c[]);
 void Question3();
+void Question4();
 
 int main()
 {
@@ -30,19 +32,18 @@ int main()
     Question1(a, b);
     Question2(a, b, c);
     Question3();
+    Question4();
 }
 
 
 void Question1(int a[], int b[])
 {
-    int const MAX = 1025;
-
-    //Populate arrays with random numbers (0 + 1024)
+    //Populate arrays with random numbers (0 - 1024)
     for (int i = 0; i < SIZE; i++)
-        a[i] = rand() % MAX;
+        a[i] = rand() % UPPER;
 
     for (int i = 0; i < SIZE*2; i++)
-        b[i] = rand() % MAX;
+        b[i] = rand() % UPPER;
 
     //Sorting functions
     ShellSort(a);
@@ -114,6 +115,47 @@ void Question3()
      * it does not contain any extreme points.
      * Thus, in the absence of extreme points and duplicates the array is sorted.
      * */
+}
+
+void Question4()
+{
+    //Initialize and Populate array
+    int numbers[N];
+    int number, product;
+    int l = 1;
+    bool match;
+
+    //Populate arrays with random unique numbers (0 - 1024)
+    for (int i = 0; i < N; i++)
+    {
+        do
+        {
+            match = false;
+            number = rand() % UPPER;
+            for(int j = 0; j < i; j++)
+            {
+                if(number == numbers[j])
+                    match = true;
+            }
+        }while(match);
+
+        numbers[i] = number;
+    }
+
+
+    //assuming ((a,b),(c,d)) is equal to all a,b,c,d configurations to avoid redundant 2-pairs
+    for (int i = 0; i < N; i++) {
+        for (int j = i + 1; j < N; j++) {
+            for (int k = j + 1; k < N; k++) {
+                for (int l = k + 1; l < N; l++) {
+                    // Check if product of (number[i], number[j]) is equal to product of (number[k], number[l])
+                    if (numbers[i] * numbers[j] == numbers[k] * numbers[l]) {
+                        printf("((%d, %d), (%d, %d))\n", numbers[i], numbers[j], numbers[k], numbers[l]);
+                    }
+                }
+            }
+        }
+    }
 }
 
 int extreme_points(int const ARRAY[])
