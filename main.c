@@ -7,15 +7,16 @@
 #define UPPER 1025
 #define N 128
 
-void ShellSort(int a[]);
-void QuickSort(int b[], int first, int last);
-int Partition(int b[], int first, int last);
-int extreme_points(int const ARRAY[]);
+void ShellSort(int a[]);                        //Used in Question 1
+void QuickSort(int b[], int first, int last);   //Used in Question 1
+int Partition(int b[], int first, int last);    //Used in Question 1
+int extreme_points(int const ARRAY[]);          //Used in Question 3
 
 void Question1(int a[], int b[]);
-void Question2(int const A[], int const B[], int c[]);
+void Question2(int const A[], int const B[]);
 void Question3();
 void Question4();
+void Question5();
 
 int main()
 {
@@ -26,13 +27,11 @@ int main()
     int a[SIZE];
     int b[SIZE*2];
 
-    //array used in question 2
-    int c[SIZE*3];
-
     Question1(a, b);
-    Question2(a, b, c);
+    Question2(a, b);
     Question3();
     Question4();
+    Question5();
 }
 
 
@@ -64,8 +63,10 @@ void Question1(int a[], int b[])
     printf("%i]\n", b[SIZE*2-1]);
 }
 
-void Question2(int const A[], int const B[], int c[])
+void Question2(int const A[], int const B[])
 {
+    int c[SIZE*3];
+
     //Populate array C with arrays A and B
     for(int i = 0; i < SIZE; i++)
         c[i] = A[i];
@@ -121,8 +122,7 @@ void Question4()
 {
     //Initialize and Populate array
     int numbers[N];
-    int number, product;
-    int l = 1;
+    int number;
     bool match;
 
     //Populate arrays with random unique numbers (0 - 1024)
