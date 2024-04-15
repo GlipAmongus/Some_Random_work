@@ -17,19 +17,19 @@ void Question3();
 
 int main()
 {
-        //unique seed value
-        srand(time(NULL));
+    //unique seed value
+    srand(time(NULL));
 
-        //arrays used in question 1
-        int a[SIZE];
-        int b[SIZE*2];
+    //arrays used in question 1
+    int a[SIZE];
+    int b[SIZE*2];
 
-        //array used in question 2
-        int c[SIZE*3];
+    //array used in question 2
+    int c[SIZE*3];
 
-        Question1(a, b);
-        Question2(a, b, c);
-        Question3();
+    Question1(a, b);
+    Question2(a, b, c);
+    Question3();
 }
 
 
