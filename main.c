@@ -11,6 +11,8 @@ void ShellSort(int a[]);                        //Used in Question 1
 void QuickSort(int b[], int first, int last);   //Used in Question 1
 int Partition(int b[], int first, int last);    //Used in Question 1
 int extreme_points(int const ARRAY[]);          //Used in Question 3
+void push(int stk[], int stack_ptr, int operand);                         //Used in Question 5
+int pop(int stk[], int stack_ptr);                                      //Used in Question 5
 
 void Question1(int a[], int b[]);
 void Question2(int const A[], int const B[]);
@@ -142,20 +144,123 @@ void Question4()
         numbers[i] = number;
     }
 
-
-    //assuming ((a,b),(c,d)) is equal to all a,b,c,d configurations to avoid redundant 2-pairs
-    for (int i = 0; i < N; i++) {
-        for (int j = i + 1; j < N; j++) {
-            for (int k = j + 1; k < N; k++) {
-                for (int l = k + 1; l < N; l++) {
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = i + 1; j < N; j++)
+        {
+            for (int k = j + 1; k < N; k++)
+            {
+                for (int l = k + 1; l < N; l++)
+                {
                     // Check if product of (number[i], number[j]) is equal to product of (number[k], number[l])
-                    if (numbers[i] * numbers[j] == numbers[k] * numbers[l]) {
+                    if (numbers[i] * numbers[j] == numbers[k] * numbers[l])
                         printf("((%d, %d), (%d, %d))\n", numbers[i], numbers[j], numbers[k], numbers[l]);
-                    }
                 }
             }
         }
     }
+}
+
+void Question5()
+{
+    char characters[N];
+    int stack[N];
+    int number, operand_1, operand_2;
+    int SP = -1;
+    int i = 0;
+
+    printf("Enter equation in postfix notation: ");
+    scanf("%s", characters);
+
+    while(characters[i] != 0)
+    {
+        switch (characters[i])
+        {
+            case 48 ... 57:
+                number = (int) characters[i] - 48;
+                push(stack, SP, number);
+                SP++;
+                break;
+            case 43:
+                operand_1 = pop(stack, SP);
+                SP--;
+                operand_2 = pop(stack, SP);
+                SP--;
+                push(stack, SP, operand_2 + operand_1);
+                SP++;
+                break;
+            case 45:
+                operand_1 = pop(stack, SP);
+                SP--;
+                operand_2 = pop(stack, SP);
+                SP--;
+                push(stack, SP, operand_2 - operand_1);
+                SP++;
+                break;
+            case 47:
+                operand_1 = pop(stack, SP);
+                SP--;
+                operand_2 = pop(stack, SP);
+                SP--;
+                push(stack, SP, operand_2 / operand_1);
+                SP++;
+                break;
+            case 120:
+                operand_1 = pop(stack, SP);
+                SP--;
+                operand_2 = pop(stack, SP);
+                SP--;
+                push(stack, SP, operand_2 * operand_1);
+                SP++;
+                break;
+        }
+        i++;
+    }
+}
+
+void push(int stk[], int stack_ptr, int operand)
+{
+    stack_ptr++;
+    stk[stack_ptr] = operand;
+    stack_ptr++;
+
+    //Print Empty Stack
+    if(stack_ptr == -1)
+    {
+        printf("[]\n");
+        return;
+    }
+    else
+    {
+        printf("[");
+        for(int i = 0; i < stack_ptr-1; i++)
+            printf("%i, ", stk[i]);
+        printf("%i]\n",stk[stack_ptr-1]);
+    }
+}
+
+int pop(int stk[], int stack_ptr)
+{
+    int temp;
+    temp = stk[stack_ptr];
+    stk[stack_ptr] = 0;
+    stack_ptr--;
+
+    //Print Empty Stack
+    if(stack_ptr == -1)
+    {
+        printf("[]\n");
+        return temp;
+    }
+    else
+    {
+        stack_ptr++;
+        printf("[");
+        for(int i = 0; i < stack_ptr-1; i++)
+            printf("%i, ", stk[i]);
+        printf("%i]\n",stk[stack_ptr-1]);
+    }
+    return temp;
 }
 
 int extreme_points(int const ARRAY[])
