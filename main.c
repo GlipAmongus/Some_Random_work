@@ -2,23 +2,27 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define SIZE 256
 #define UPPER 1025
 #define N 128
 
-void ShellSort(int a[]);                        //Used in Question 1
-void QuickSort(int b[], int first, int last);   //Used in Question 1
-int Partition(int b[], int first, int last);    //Used in Question 1
-int extreme_points(int const ARRAY[]);          //Used in Question 3
-void push(int stk[], int stack_ptr, int operand);                         //Used in Question 5
-int pop(int stk[], int stack_ptr);                                      //Used in Question 5
+void ShellSort(int a[]);                            //Used in Question 1
+void QuickSort(int b[], int first, int last);       //Used in Question 1
+int Partition(int b[], int first, int last);        //Used in Question 1
+int extreme_points(int const ARRAY[]);              //Used in Question 3
+void push(int stk[], int stack_ptr, int operand);   //Used in Question 5
+int pop(int stk[], int stack_ptr);                  //Used in Question 5
+bool prime_boolean(int n);                          //Used in Question 6
+void seive_of_Eratosthene();                        //Used in Question 6
 
 void Question1(int a[], int b[]);
 void Question2(int const A[], int const B[]);
 void Question3();
 void Question4();
 void Question5();
+void Question6();
 
 int main()
 {
@@ -34,6 +38,7 @@ int main()
     Question3();
     Question4();
     Question5();
+    Question6();
 }
 
 
@@ -54,15 +59,15 @@ void Question1(int a[], int b[])
     printf("[");
     for(int i = 0; i < SIZE - 1; i++)
     {
-        printf("%i, ", a[i]);
+        printf("%d, ", a[i]);
     }
-    printf("%i]\n", a[SIZE-1]);
+    printf("%d]\n", a[SIZE-1]);
     printf("[");
     for(int i = 0; i < SIZE*2 - 1; i++)
     {
-        printf("%i, ", b[i]);
+        printf("%d, ", b[i]);
     }
-    printf("%i]\n", b[SIZE*2-1]);
+    printf("%d]\n", b[SIZE*2-1]);
 }
 
 void Question2(int const A[], int const B[])
@@ -79,9 +84,9 @@ void Question2(int const A[], int const B[])
     printf("[");
     for(int i = 0; i < SIZE*3 - 1; i++)
     {
-        printf("%i, ", c[i]);
+        printf("%d, ", c[i]);
     }
-    printf("%i]\n", c[SIZE*3-1]);
+    printf("%d]\n", c[SIZE*3-1]);
 }
 
 void Question3()
@@ -97,9 +102,9 @@ void Question3()
     printf("[");
     for(int i = 0; i < N; i++)
     {
-        printf("%i, ", arr[i]);
+        printf("%d, ", arr[i]);
     }
-    printf("%i]\n", arr[N-1]);
+    printf("%d]\n", arr[N-1]);
 
     //Extreme points
     ext_cnt = extreme_points(arr);
@@ -114,7 +119,7 @@ void Question3()
      * */
 
     /*
-     * Although in the case where and an array is sorted [1,2,3,4,5] or inversely [5,4,3,2,1]
+     * Although in the case where an array is sorted [1,2,3,4,5] or inversely [5,4,3,2,1]
      * it does not contain any extreme points.
      * Thus, in the absence of extreme points and duplicates the array is sorted.
      * */
@@ -218,6 +223,69 @@ void Question5()
     }
 }
 
+void Question6()
+{
+    for(int i = 1; i < SIZE; i++)
+    {
+        if(prime_boolean(i))
+            printf("%d, ", i);
+    }
+
+    seive_of_Eratosthene();
+}
+
+void seive_of_Eratosthene()
+{
+    bool prime[SIZE];
+    memset(prime, true, SIZE);
+
+    for(int p = 2; p*p <= SIZE; p++)
+    {
+        if(prime[p]){
+            //marking multiples of prime numbers
+            for(int i = p*p; i <= SIZE; i += p)
+            {
+                /*
+                 * check through multiples of p at p^2 or greater
+                 * since multiples of p smaller than p^2 have already been checked
+                 * */
+                 prime[i] = false;
+            }
+        }
+    }
+
+    for(int p = 2; p < SIZE; p++)
+    {
+        if(prime[p])
+            printf("%d, ",p);
+    }
+    //store prime multiples in array
+    //iterate through
+}
+
+bool prime_boolean(int n)
+{
+    int i = 3;
+
+    switch (n)
+    {
+        case 1:
+            return false;
+        case 2 ... 3:
+            return true;
+        default:
+            if(n % 2 == 0)
+                return false;
+            while(i*i <= n)
+            {
+                if(n % i == 0)
+                    return false;
+                i = i+2;
+            }
+            return true;
+    }
+}
+
 void push(int stk[], int stack_ptr, int operand)
 {
     stack_ptr++;
@@ -225,7 +293,7 @@ void push(int stk[], int stack_ptr, int operand)
 
     //Print Stack
     for(int i = 0; i <= stack_ptr; i++)
-        printf("%i, ", stk[i]);
+        printf("%d, ", stk[i]);
     printf("\n");
 }
 
@@ -248,7 +316,7 @@ int pop(int stk[], int stack_ptr)
         return temp;
     }
     for(int i = 0; i <= stack_ptr; i++)
-        printf("%i, ", stk[i]);
+        printf("%d, ", stk[i]);
     printf("\n");
     return temp;
 }
@@ -270,9 +338,9 @@ int extreme_points(int const ARRAY[])
     printf("[");
     for(int i = 0; i < count-2; i++)
     {
-        printf("%i, ", ext_pts[i]);
+        printf("%d, ", ext_pts[i]);
     }
-    printf("%i]\n", ext_pts[count-1]);
+    printf("%d]\n", ext_pts[count-1]);
 
     return count;
 }
