@@ -222,21 +222,11 @@ void push(int stk[], int stack_ptr, int operand)
 {
     stack_ptr++;
     stk[stack_ptr] = operand;
-    stack_ptr++;
 
-    //Print Empty Stack
-    if(stack_ptr == -1)
-    {
-        printf("[]\n");
-        return;
-    }
-    else
-    {
-        printf("[");
-        for(int i = 0; i < stack_ptr-1; i++)
-            printf("%i, ", stk[i]);
-        printf("%i]\n",stk[stack_ptr-1]);
-    }
+    //Print Stack
+    for(int i = 0; i <= stack_ptr; i++)
+        printf("%i, ", stk[i]);
+    printf("\n");
 }
 
 int pop(int stk[], int stack_ptr)
@@ -247,19 +237,19 @@ int pop(int stk[], int stack_ptr)
     stack_ptr--;
 
     //Print Empty Stack
+    if(stack_ptr < -1)
+    {
+        printf("Invalid Postfix Sequence");
+        exit(-1);
+    }
     if(stack_ptr == -1)
     {
-        printf("[]\n");
+        printf("EMPTY\n");
         return temp;
     }
-    else
-    {
-        stack_ptr++;
-        printf("[");
-        for(int i = 0; i < stack_ptr-1; i++)
-            printf("%i, ", stk[i]);
-        printf("%i]\n",stk[stack_ptr-1]);
-    }
+    for(int i = 0; i <= stack_ptr; i++)
+        printf("%i, ", stk[i]);
+    printf("\n");
     return temp;
 }
 
