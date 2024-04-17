@@ -8,14 +8,16 @@
 #define UPPER 1025
 #define N 128
 
-void ShellSort(int a[]);                            //Used in Question 1
-void QuickSort(int b[], int first, int last);       //Used in Question 1
-int Partition(int b[], int first, int last);        //Used in Question 1
-int extreme_points(int const ARRAY[]);              //Used in Question 3
-void push(int stk[], int stack_ptr, int operand);   //Used in Question 5
-int pop(int stk[], int stack_ptr);                  //Used in Question 5
-bool prime_boolean(int n);                          //Used in Question 6
-void seive_of_Eratosthene();                        //Used in Question 6
+void ShellSort(int a[]);                                    //Used in Question 1
+void QuickSort(int b[], int first, int last);               //Used in Question 1
+int Partition(int b[], int first, int last);                //Used in Question 1
+int extreme_points(int const ARRAY[]);                      //Used in Question 3
+void push(int stk[], int stack_ptr, int operand);           //Used in Question 5
+int pop(int stk[], int stack_ptr);                          //Used in Question 5
+bool prime_boolean(int n);                                  //Used in Question 6
+void seive_of_eratosthene();                                //Used in Question 6
+long double newton_raphson(long double xn_minus_1, int n);  //Used in Question 8
+char cli_validation(void);                                  //Used in Question 8
 
 void Question1(int a[], int b[]);
 void Question2(int const A[], int const B[]);
@@ -23,6 +25,7 @@ void Question3();
 void Question4();
 void Question5();
 void Question6();
+void Question8();
 
 int main()
 {
@@ -39,8 +42,8 @@ int main()
     Question4();
     Question5();
     Question6();
+    Question8();
 }
-
 
 void Question1(int a[], int b[])
 {
@@ -230,11 +233,76 @@ void Question6()
         if(prime_boolean(i))
             printf("%d, ", i);
     }
+    printf("\n");
 
-    seive_of_Eratosthene();
+    seive_of_eratosthene();
 }
 
-void seive_of_Eratosthene()
+void Question8()
+{
+    char cli;
+
+    int n = (rand() % UPPER)+1;
+    long double x = (rand() % N)+1;
+
+    printf("'q' - quit or 'SPACE' - iterate\n");
+    do
+    {
+        x = newton_raphson(x, n);
+
+        printf("Newton Raphson: %Lf\n", x);
+
+        cli = cli_validation();
+    } while(cli != 'q');
+}
+
+void Question9()
+{
+    int randoms[SIZE];
+    int duplicates[SIZE];
+    int seen[SIZE];
+
+
+}
+
+char cli_validation(void)
+{
+    char ch;
+
+    ch = getchar();
+    while(ch != '\n' && ch != 'q')
+    {
+        //empty buffer
+        while((ch = getchar()) != '\n')
+        {
+            putchar(ch);
+        }
+
+        printf("Error: Invalid character. 'q' or '\n' accepted");
+    }
+
+    return ch;
+}
+
+long double newton_raphson(long double xn_minus_1, int n)
+{
+    long double xn;
+
+    long double f_x = (xn_minus_1)*(xn_minus_1) + n;
+    long double f_x_prime = 2*xn_minus_1;
+
+    if(f_x_prime == 0)
+    {
+        printf("Denominator is 0");
+        return xn_minus_1;
+    }
+
+    xn = xn_minus_1 - (f_x / f_x_prime);
+
+    return xn;
+}
+
+void seive_of_eratosthene()
 {
     bool prime[SIZE];
     memset(prime, true, SIZE);
@@ -259,8 +327,7 @@ void seive_of_Eratosthene()
         if(prime[p])
             printf("%d, ",p);
     }
-    //store prime multiples in array
-    //iterate through
+    printf("\n");
 }
 
 bool prime_boolean(int n)
