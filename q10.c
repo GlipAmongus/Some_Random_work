@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int max(int arr[], int n);
 
 int main(void)
 {
     const int N = 256;
+
+    //unique seed value
+    srand(time(NULL));
 
     int array_n[N];
     for(int i = 0; i < N; i++)

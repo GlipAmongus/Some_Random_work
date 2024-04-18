@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 /*
  * An array has no extreme points if and only if it is sorted is false
@@ -18,6 +19,9 @@ void extremePoints(int const PTS[], size_t capacity);
 int main(void)
 {
     const int N = 256;
+
+    //unique seed value
+    srand(time(NULL));
 
     int points[N];
 

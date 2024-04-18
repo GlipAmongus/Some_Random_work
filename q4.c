@@ -1,11 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 
 int main(void)
 {
     const int N = 256;
     const int UPPER = 1024;
+
+    //unique seed value
+    srand(time(NULL));
 
     int array_n[N];
     int number;     //temp. random number generated
