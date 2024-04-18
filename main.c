@@ -229,17 +229,7 @@ void Question5(void)
     }
 }
 
-void Question6(void)
-{
-    for(int i = 1; i < SIZE; i++)
-    {
-        if(prime_boolean(i))
-            printf("%d, ", i);
-    }
-    printf("\n");
 
-    seive_of_eratosthene();
-}
 
 void Question8(void)
 {
