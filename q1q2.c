@@ -3,17 +3,16 @@
 #include <time.h>
 #include <stdbool.h>
 
-#define SIZE 256
-
 void shellSort(int a[], size_t capacity);
 void quickSort(int b[], int first, int last);
 int partition(int b[], int first, int last);
 
 int main(void) {
+    const int N = 256;
     const int UPPER = 1025;
     //arrays used in question 1
-    int array_a[SIZE];
-    int array_b[SIZE * 2];
+    int array_a[N];
+    int array_b[N*2];
 
     //array used in question 2, size of array c calculated using size of array a + b
     size_t a_size = sizeof(array_a)/sizeof(array_a[0]);
@@ -38,14 +37,11 @@ int main(void) {
     //Output arrays A, B, in that order
     printf("ARRAY A:\n");
     for(int i = 0; i < a_size; i++)
-    {
         printf("%d, ", array_a[i]);
-    }
+
     printf("\n\nARRAY B:\n");
     for(int i = 0; i < b_size; i++)
-    {
         printf("%d, ", array_b[i]);
-    }
 
     //Populate array C with arrays A and B in linear time
     for(int i = 0; i < a_size; i++)
@@ -56,10 +52,9 @@ int main(void) {
     //Output Array C
     printf("\n\nARRAY C:\n");
     for(int i = 0; i < c_size; i++)
-    {
         printf("%d, ", array_c[i]);
-    }
-    printf("%d]\n", array_c[SIZE*3-1]);
+
+    exit(0);
 }
 
 void shellSort(int a[], size_t capacity)
