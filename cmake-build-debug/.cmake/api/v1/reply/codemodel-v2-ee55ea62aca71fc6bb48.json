@@ -1,0 +1,150 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ICT1018_Data_Structures",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Q10::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q10-Debug-a22b511b47c11811a2a1.json",
+					"name" : "Q10",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q11::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q11-Debug-1d28bc733da00667395a.json",
+					"name" : "Q11",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q12::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q12-Debug-e633cc058532d22c3c30.json",
+					"name" : "Q12",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q1Q2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q1Q2-Debug-90d98ba9c29440361ba5.json",
+					"name" : "Q1Q2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q3-Debug-2a8fe7f84faee8a8fcf2.json",
+					"name" : "Q3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q4::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q4-Debug-ee6c8dc804e44e8bf6ef.json",
+					"name" : "Q4",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q5::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q5-Debug-8045491f1f8ee06ebde3.json",
+					"name" : "Q5",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q6::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q6-Debug-22a70f887b57915d6c6f.json",
+					"name" : "Q6",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q7::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q7-Debug-62ca8c70af3aaefb873e.json",
+					"name" : "Q7",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q8::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q8-Debug-789e974f13fa75a68d06.json",
+					"name" : "Q8",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Q9::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Q9-Debug-f98741d77f74bfb3ecc2.json",
+					"name" : "Q9",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/User/OneDrive/Desktop/Uni/Year_1/Semester_2/ICT1018_Data_Structures/cmake-build-debug",
+		"source" : "C:/Users/User/OneDrive/Desktop/Uni/Year_1/Semester_2/ICT1018_Data_Structures"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}
