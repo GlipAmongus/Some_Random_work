@@ -15,9 +15,10 @@ int extreme_points(int const ARRAY[]);                      //Used in Question 3
 void push(int stk[], int stack_ptr, int operand);           //Used in Question 5
 int pop(int stk[], int stack_ptr);                          //Used in Question 5
 bool prime_boolean(int n);                                  //Used in Question 6
-void seive_of_eratosthene();                                //Used in Question 6
+void seive_of_eratosthene(void);                            //Used in Question 6
 long double newton_raphson(long double xn_minus_1, int n);  //Used in Question 8
 char cli_validation(void);                                  //Used in Question 8
+int max(int arr[], int n);                                  //Used in Question 10
 
 void Question1(int a[], int b[]);
 void Question2(int const A[], int const B[]);
@@ -26,8 +27,9 @@ void Question4();
 void Question5();
 void Question6();
 void Question8();
+void Question10();
 
-int main()
+int main(void)
 {
     //unique seed value
     srand(time(NULL));
@@ -36,13 +38,14 @@ int main()
     int a[SIZE];
     int b[SIZE*2];
 
-    Question1(a, b);
-    Question2(a, b);
-    Question3();
-    Question4();
-    Question5();
-    Question6();
-    Question8();
+//    Question1(a, b);
+//    Question2(a, b);
+//    Question3();
+//    Question4();
+//    Question5();
+//    Question6();
+//    Question8();
+    Question10();
 }
 
 void Question1(int a[], int b[])
@@ -92,7 +95,7 @@ void Question2(int const A[], int const B[])
     printf("%d]\n", c[SIZE*3-1]);
 }
 
-void Question3()
+void Question3(void)
 {
     int arr[N];
     int ext_cnt;
@@ -128,7 +131,7 @@ void Question3()
      * */
 }
 
-void Question4()
+void Question4(void)
 {
     //Initialize and Populate array
     int numbers[N];
@@ -169,7 +172,7 @@ void Question4()
     }
 }
 
-void Question5()
+void Question5(void)
 {
     char characters[N];
     int stack[N];
@@ -226,7 +229,7 @@ void Question5()
     }
 }
 
-void Question6()
+void Question6(void)
 {
     for(int i = 1; i < SIZE; i++)
     {
@@ -238,7 +241,7 @@ void Question6()
     seive_of_eratosthene();
 }
 
-void Question8()
+void Question8(void)
 {
     char cli;
 
@@ -256,13 +259,27 @@ void Question8()
     } while(cli != 'q');
 }
 
-void Question9()
+void Question10(void)
 {
-    int randoms[SIZE];
-    int duplicates[SIZE];
-    int seen[SIZE];
+    int numbers[SIZE];
+    for(int i = 0; i < SIZE; i++)
+    {
+        numbers[i] = rand() % 1024 + 1;
+    }
+    printf("%d", max(numbers, SIZE-1));
+}
 
-
+int max(int arr[], int n)
+{
+    int temp;
+    if(n == 1)
+        return arr[0];
+    if(arr[n] > (temp = max(arr, n-1)))
+    {
+        return arr[n];
+    }else{
+        return temp;
+    }
 }
 
 char cli_validation(void)
@@ -302,16 +319,16 @@ long double newton_raphson(long double xn_minus_1, int n)
     return xn;
 }
 
-void seive_of_eratosthene()
+void seive_of_eratosthene(void)
 {
     bool prime[SIZE];
     memset(prime, true, SIZE);
 
-    for(int p = 2; p*p <= SIZE; p++)
+    for(int p = 2; p*p < SIZE; p++)
     {
         if(prime[p]){
             //marking multiples of prime numbers
-            for(int i = p*p; i <= SIZE; i += p)
+            for(int i = p*p; i < SIZE; i += p)
             {
                 /*
                  * check through multiples of p at p^2 or greater
