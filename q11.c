@@ -1,33 +1,42 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <math.h>
 
-unsigned long long cosine(int i);
-unsigned long long sine(int i);
+long double cosine(int N, double x);
+long double factorial(int n);
 
 int main(void)
 {
+    const int N = 8;
+
     //unique seed value
     srand(time(NULL));
 
-    int n = (rand() % 32) + 1;
+    long double cosine_approx = cosine(N, M_PI);
 
-    long double cosine_approx = cosine(n);
-    long double sine_approx = sine(n);
-
-    printf("For n = %d\n", n);
+    printf("For n = %d\n", N);
     printf("Mclaurin Expansion of cosine: %Lf\n", cosine_approx);
-    printf("Mclaurin Expansion of sine: %Lf\n", sine_approx);
 
     exit(0);
 }
 
-long double cosine(int i)
+long double cosine(int N, double x)
 {
-    for(int i)
+    long double expansion = 0;
+    for(int n = 0; n < N; n++)
+    {
+        expansion += (pow(-1, n)/factorial(2*n))*(pow(x, 2*n));
+    }
+    return expansion;
 }
 
-long double sine(int i)
+long double factorial(int n)
 {
-
+    int result = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        result *= i;
+    }
+    return (long double)result;
 }
