@@ -8,7 +8,7 @@ void seiveEratosthene(int capacity);
 
 int main(void)
 {
-    int const N = 128;
+    int const N = 256;
 
     printf("Brute Force: \n");
     for(int i = 1; i < N; i++)
