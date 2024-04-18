@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 
-unsigned long long sumFibonacci(int i);
+unsigned long long int sumFibonacci(int i);
 
 int main(void)
 {
@@ -11,12 +11,14 @@ int main(void)
 
     int n = (rand() % 127) + 2;
 
-    unsigned long long sum = sumFibonacci(n);
+    unsigned long long int sum = sumFibonacci(n);
 
     printf("Sum of the first %d numbers: %llu", n, sum);
+
+    exit(0);
 }
 
-unsigned long long sumFibonacci(int i)
+unsigned long long int sumFibonacci(int i)
 {
     int sum = 2;
     int x = 1;
