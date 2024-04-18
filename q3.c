@@ -18,6 +18,7 @@ void extremePoints(int const PTS[], size_t capacity);
 int main(void)
 {
     const int N = 256;
+
     int points[N];
 
     //Populate array. Duplicate values allowed since not enforced otherwise

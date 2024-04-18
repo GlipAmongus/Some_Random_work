@@ -10,6 +10,7 @@ int partition(int b[], int first, int last);
 int main(void) {
     const int N = 256;
     const int UPPER = 1025;
+
     //arrays used in question 1
     int array_a[N];
     int array_b[N*2];
