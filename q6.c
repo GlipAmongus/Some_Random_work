@@ -17,7 +17,7 @@ int main(void)
             printf("%d, ", i);
     }
 
-    printf("\nSeive of Erastosthene: ");
+    printf("\nSeive of Erastosthene: \n");
     seiveEratosthene(N);
 
     exit(0);

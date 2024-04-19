@@ -48,7 +48,7 @@ int main(void) {
     for(int i = 0; i < a_size; i++)
         array_c[i] = array_a[i];
     for(int i = 0; i < b_size; i++)
-        array_c[i+b_size] = array_b[i];
+        array_c[i+a_size] = array_b[i];
 
     //Output Array C
     printf("\n\nARRAY C:\n");
