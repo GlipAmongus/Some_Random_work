@@ -8,7 +8,7 @@ void quickSort(int b[], int first, int last);
 int partition(int b[], int first, int last);
 
 int main(void) {
-    const int N = 256;
+    const int N = 1026;
     const int UPPER = 1025;
 
     //arrays used in question 1

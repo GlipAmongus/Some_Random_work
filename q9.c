@@ -5,6 +5,8 @@
 #define SIZE 1024
 #define STATIC_CAPACITY 2024
 
+//REMOVE HASH FUNCTION IMPLEMTATION, USE INSTEAD ARRAY OF BOOL INDEXED BY RANDOM NUMBER!!!!!!!!
+
 typedef struct element{
     unsigned int *key;
 } element_t;
