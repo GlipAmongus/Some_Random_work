@@ -30,23 +30,32 @@ int main(void) {
     for (int i = 0; i < b_size; i++)
         array_b[i] = rand() % UPPER;
 
+    //Output unsorted arrays A, B, in that order
+    printf("ARRAY A Unsorted:\n");
+    for(int i = 0; i < a_size; i++)
+        printf("%d, ", array_a[i]);
+
+    printf("\n\nARRAY B Unsorted:\n");
+    for(int i = 0; i < b_size; i++)
+        printf("%d, ", array_b[i]);
+
     //Sorting functions
     shellSort(array_a, a_size);
     quickSort(array_b, 0, (int)(b_size-1));
 
     //Output arrays A, B, in that order
-    printf("ARRAY A:\n");
+    printf("\n\nARRAY A Sorted:\n");
     for(int i = 0; i < a_size; i++)
         printf("%d, ", array_a[i]);
 
-    printf("\n\nARRAY B:\n");
+    printf("\n\nARRAY B Sorted:\n");
     for(int i = 0; i < b_size; i++)
         printf("%d, ", array_b[i]);
 
     array_merge(array_a, array_b, array_c, a_size, b_size);
 
     //Output Array C
-    printf("\n\nARRAY C:\n");
+    printf("\n\nARRAY C Sorted:\n");
     for(int i = 0; i < c_size; i++)
         printf("%d, ", array_c[i]);
 
