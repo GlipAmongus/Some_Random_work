@@ -61,16 +61,15 @@ int main(void) {
 void shellSort(int a[], size_t capacity)
 {
     int gap = (int) (capacity / 2);
-    bool flag = true;
+    bool flag;
     int temp;
 
     do
     {
         flag = false;
-
-        for (int i = 0; i < capacity - gap; i++)
+        for (int i = 0; i < capacity - gap; i++) // Iterate until gap reaches last position
         {
-            if(a[i] > a[i+gap])
+            if(a[i] > a[i+gap]) // If greater then swap
             {
                 temp = a[i];
                 a[i] = a[i + gap];
@@ -79,16 +78,16 @@ void shellSort(int a[], size_t capacity)
             }
         }
 
-        if(gap > 1)
+        if(gap > 1) // Half gap after each iteration
             gap = (int) (gap / 2);
-    }while(gap >= 1 && flag == true);
+    }while(flag == true); // Loop until flag is not activated
 }
 
 void quickSort(int b[], int first, int last)
 {
     int pivot_point;
 
-    if(first < last)
+    if(first < last) // Check if base case
     {
         pivot_point = partition(b, first, last);
     }
@@ -96,7 +95,9 @@ void quickSort(int b[], int first, int last)
     {
         return;
     }
+    // Recursive call left side
     quickSort(b, first, pivot_point - 1);
+    // Recursive call right side
     quickSort(b, pivot_point + 1, last);
 }
 
@@ -109,11 +110,14 @@ int partition(int b[], int first, int last)
 
     do
     {
+        // Increment left until value at position 'left' is larger than or equal to pivot or is the final position
         while((b[left] <= pivot) && (left != last))
             left++;
+        // Decrement right until value at position 'right' is smaller than the pivot or is the first position
         while((b[right] > pivot) && (right != first))
             right--;
 
+        // Swap values at positions 'left' and 'right' when left is smaller than right
         if(left < right)
         {
             temp = b[left];
@@ -121,11 +125,12 @@ int partition(int b[], int first, int last)
             b[right] = temp;
         }
 
-    }while(left < right);
+    }while(left < right); // Loop until left is larger than or equal to right
 
+    // Swap positions 'first' and 'right'
     temp = b[first];
     b[first] = b[right];
     b[right] = temp;
 
-    return right;
+    return right; // Return right as the pivot point
 }
