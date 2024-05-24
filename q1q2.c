@@ -92,13 +92,10 @@ void quickSort(int b[], int first, int last)
     int pivot_point;
 
     if(first < last) //Check if base case
-    {
         pivot_point = partition(b, first, last);
-    }
     else
-    {
         return;
-    }
+
     //Recursive call left side
     quickSort(b, first, pivot_point - 1);
     //Recursive call right side
@@ -159,7 +156,6 @@ void array_merge(const int arr_a[], const int arr_b[], int arr_c[], size_t a_len
         }
         counter_c++;
     }
-
     //Concatenate the remaining values in the arrays
     while(counter_a < a_len)
     {
