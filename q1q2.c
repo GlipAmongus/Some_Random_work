@@ -6,14 +6,13 @@
 void shellSort(int a[], size_t capacity);
 void quickSort(int b[], int first, int last);
 int partition(int b[], int first, int last);
+void array_merge(const int arr_a[], const int arr_b[], int arr_c[], size_t a_len, size_t b_len);
 
 int main(void) {
-    const int N = 1026;
-    const int UPPER = 1025;
+    const int N = 256, UPPER = 1025;
 
     //arrays used in question 1
-    int array_a[N];
-    int array_b[N*2];
+    int array_a[N], array_b[N*2];
 
     //array used in question 2, size of array c calculated using size of array a + b
     size_t a_size = sizeof(array_a)/sizeof(array_a[0]);
@@ -44,11 +43,7 @@ int main(void) {
     for(int i = 0; i < b_size; i++)
         printf("%d, ", array_b[i]);
 
-    //Populate array C with arrays A and B in linear time
-    for(int i = 0; i < a_size; i++)
-        array_c[i] = array_a[i];
-    for(int i = 0; i < b_size; i++)
-        array_c[i+a_size] = array_b[i];
+    array_merge(array_a, array_b, array_c, a_size, b_size);
 
     //Output Array C
     printf("\n\nARRAY C:\n");
@@ -67,9 +62,9 @@ void shellSort(int a[], size_t capacity)
     do
     {
         flag = false;
-        for (int i = 0; i < capacity - gap; i++) // Iterate until gap reaches last position
+        for (int i = 0; i < capacity - gap; i++) //Iterate until gap reaches last position
         {
-            if(a[i] > a[i+gap]) // If greater then swap
+            if(a[i] > a[i+gap]) //If greater then swap
             {
                 temp = a[i];
                 a[i] = a[i + gap];
@@ -78,16 +73,16 @@ void shellSort(int a[], size_t capacity)
             }
         }
 
-        if(gap > 1) // Half gap after each iteration
+        if(gap > 1) //Half gap after each iteration
             gap = (int) (gap / 2);
-    }while(flag == true); // Loop until flag is not activated
+    }while(flag == true); //Loop until flag is not activated
 }
 
 void quickSort(int b[], int first, int last)
 {
     int pivot_point;
 
-    if(first < last) // Check if base case
+    if(first < last) //Check if base case
     {
         pivot_point = partition(b, first, last);
     }
@@ -95,9 +90,9 @@ void quickSort(int b[], int first, int last)
     {
         return;
     }
-    // Recursive call left side
+    //Recursive call left side
     quickSort(b, first, pivot_point - 1);
-    // Recursive call right side
+    //Recursive call right side
     quickSort(b, pivot_point + 1, last);
 }
 
@@ -110,14 +105,14 @@ int partition(int b[], int first, int last)
 
     do
     {
-        // Increment left until value at position 'left' is larger than or equal to pivot or is the final position
+        //Increment left until value at position 'left' is larger than or equal to pivot or is the final position
         while((b[left] <= pivot) && (left != last))
             left++;
-        // Decrement right until value at position 'right' is smaller than the pivot or is the first position
+        //Decrement right until value at position 'right' is smaller than the pivot or is the first position
         while((b[right] > pivot) && (right != first))
             right--;
 
-        // Swap values at positions 'left' and 'right' when left is smaller than right
+        //Swap values at positions 'left' and 'right' when left is smaller than right
         if(left < right)
         {
             temp = b[left];
@@ -125,12 +120,46 @@ int partition(int b[], int first, int last)
             b[right] = temp;
         }
 
-    }while(left < right); // Loop until left is larger than or equal to right
+    }while(left < right); //Loop until left is larger than or equal to right
 
-    // Swap positions 'first' and 'right'
+    //Swap positions 'first' and 'right'
     temp = b[first];
     b[first] = b[right];
     b[right] = temp;
 
-    return right; // Return right as the pivot point
+    return right; //Return right as the pivot point
+}
+
+void array_merge(const int arr_a[], const int arr_b[], int arr_c[], size_t a_len, size_t b_len)
+{
+    int counter_a = 0, counter_b = 0, counter_c = 0; //Array iterators to merge Arrays to Array C
+
+    //Merge array C with arrays A and B in linear time
+    while(counter_a < a_len && counter_b < b_len)
+    {
+        //Concatenate values in ascending order
+        if(arr_a[counter_a] <= arr_b[counter_b])
+        {
+            arr_c[counter_c] = arr_a[counter_a];
+            counter_a++;
+        }
+        else
+        {
+            arr_c[counter_c] = arr_b[counter_b];
+            counter_b++;
+        }
+        counter_c++;
+    }
+
+    //Concatenate the remaining values in the arrays
+    while(counter_a < a_len)
+    {
+        arr_c[counter_c] = arr_a[counter_a];
+        counter_a++, counter_c++;
+    }
+    while(counter_b < b_len)
+    {
+        arr_c[counter_c] = arr_b[counter_b];
+        counter_b++, counter_c++;
+    }
 }
