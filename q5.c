@@ -1,23 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int* dynamicInit(size_t capacity);
-int* dynamicResize(int *d_array, size_t *capacity);
 void push(int stk[], int stack_ptr, int operand);
 int pop(int stk[], int stack_ptr);
 
 int main(void)
 {
     const int N = 128;
-    size_t stack_N = 8;
 
     char characters[N];
+    int stack[N];
 
-    int number, operand_1, operand_2;
-    int SP = -1;        //Stack pointer initialized
-    int i = 0;          //loop through input string
-
-    int *stack = dynamicInit(stack_N);
+    int number, operand_1, operand_2, div; //div - holds result of division operator
+    int SP = -1, i = 0;        //Stack pointer initialized, Iterator for input string
 
     printf("Enter equation in postfix notation: ");
     scanf("%s", characters);
@@ -26,38 +21,42 @@ int main(void)
     {
         switch (characters[i])
         {
-            case 48 ... 57:
+            case 48 ... 57: //digit cases
                 number = (int) characters[i] - 48;
                 SP++;
-                if(SP == stack_N)
-                    stack = dynamicResize(stack, &stack_N);
                 push(stack, SP, number);
                 break;
-            case 43:
+            case 43: // "+" case
                 operand_1 = pop(stack, SP);
                 SP--;
                 operand_2 = pop(stack, SP);
                 push(stack, SP, operand_2 + operand_1);
                 break;
-            case 45:
+            case 45: // "-" case
                 operand_1 = pop(stack, SP);
                 SP--;
                 operand_2 = pop(stack, SP);
                 push(stack, SP, operand_2 - operand_1);
                 break;
-            case 47:
+            case 47: // "/" case
                 operand_1 = pop(stack, SP);
                 SP--;
                 operand_2 = pop(stack, SP);
-                push(stack, SP, operand_2 / operand_1);
+                if(operand_1 == 0) //divide by zero error
+                {
+                    printf("Error: Dividing by zero");
+                    exit(1);
+                }
+                div = operand_2/operand_1;
+                push(stack, SP, div);
                 break;
-            case 120:
+            case 120: // "x" case
                 operand_1 = pop(stack, SP);
                 SP--;
                 operand_2 = pop(stack, SP);
                 push(stack, SP, operand_2 * operand_1);
                 break;
-            default:
+            default: // invalid char case
                 printf("Invalid character use, allowed - [0-9], [+,-,x,/]\n");
                 exit(1);
         }
@@ -79,46 +78,22 @@ void push(int stk[], int stack_ptr, int operand)
 
 int pop(int stk[], int stack_ptr)
 {
-    int temp;
-    temp = stk[stack_ptr];
+    int popped_val = stk[stack_ptr];
     stk[stack_ptr] = 0;
     stack_ptr--;
 
-    //Print Empty Stack
-    if(stack_ptr < -1)
+    if(stack_ptr < -1)//print if invalid expression
     {
         printf("Invalid Postfix Sequence");
         exit(-1);
     }
-    if(stack_ptr == -1)
+    if(stack_ptr == -1)//print Empty Stack
     {
         printf("EMPTY\n");
-        return temp;
+        return popped_val;
     }
-    for(int i = 0; i <= stack_ptr; i++)
+    for(int i = 0; i <= stack_ptr; i++)//print stack
         printf("%d, ", stk[i]);
     printf("\n");
-    return temp;
-}
-
-int* dynamicInit(size_t capacity)
-{
-    int *d_array = calloc(capacity, sizeof(int));
-    if(d_array == NULL)
-        return NULL;
-
-    return d_array;
-}
-
-int* dynamicResize(int* d_array, size_t *capacity)
-{
-    *capacity = (*capacity) * 2;
-
-    int *temp = d_array;
-
-    d_array = (int *) realloc(d_array, *capacity);
-    if (d_array == NULL)
-        d_array = temp;
-
-    return d_array;
+    return popped_val;
 }
