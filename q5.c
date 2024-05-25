@@ -78,22 +78,26 @@ void push(int stk[], int stack_ptr, int operand)
 
 int pop(int stk[], int stack_ptr)
 {
-    int popped_val = stk[stack_ptr];
-    stk[stack_ptr] = 0;
+    int popped_val = stk[stack_ptr]; //popped value to return
+    stk[stack_ptr] = 0; //replace with zero
     stack_ptr--;
 
-    if(stack_ptr < -1)//print if invalid expression
+    // Print error message: invalid expression
+    if(stack_ptr < -1)
     {
         printf("Invalid Postfix Sequence");
         exit(-1);
     }
-    if(stack_ptr == -1)//print Empty Stack
+    // Print Empty
+    if(stack_ptr == -1)
     {
         printf("EMPTY\n");
         return popped_val;
     }
-    for(int i = 0; i <= stack_ptr; i++)//print stack
+    // Print stack
+    for(int i = 0; i <= stack_ptr; i++)
         printf("%d, ", stk[i]);
     printf("\n");
+
     return popped_val;
 }
