@@ -25,25 +25,14 @@ int main(void)
 
 bool prime_boolean(int n)
 {
-    int i = 3;
-
-    switch (n)
+    if(n == 1)
+        return false;
+    for(int i = 2; i < n; i++)
     {
-        case 1:
+        if(n % i == 0)
             return false;
-        case 2 ... 3:
-            return true;
-        default:
-            if(n % 2 == 0)
-                return false;
-            while(i * i <= n)
-            {
-                if(n % i == 0)
-                    return false;
-                i = i+2;
-            }
-            return true;
     }
+    return true;
 }
 
 void seiveEratosthene(int capacity)
