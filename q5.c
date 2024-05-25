@@ -57,6 +57,9 @@ int main(void)
                 operand_2 = pop(stack, SP);
                 push(stack, SP, operand_2 * operand_1);
                 break;
+            default:
+                printf("Invalid character use, allowed - [0-9], [+,-,x,/]\n");
+                exit(1);
         }
         i++;
     }
@@ -119,5 +122,3 @@ int* dynamicResize(int* d_array, size_t *capacity)
 
     return d_array;
 }
-
-

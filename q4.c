@@ -5,7 +5,7 @@
 
 int main(void)
 {
-    const int N = 256;
+    const int N = 64;
     const int UPPER = 1024;
 
     //unique seed value
@@ -32,6 +32,7 @@ int main(void)
         array_n[i] = number;
     }
 
+    // i = 0, j = i + 1, etc ensures a != b != c != d, and avoids redundancy
     for (int i = 0; i < N; i++)
     {
         for (int j = i + 1; j < N; j++)
