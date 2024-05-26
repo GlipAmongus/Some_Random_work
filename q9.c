@@ -1,14 +1,14 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <time.h>
 
-#define SIZE 1024
-#define STATIC_CAPACITY 2024
-
-//REMOVE HASH FUNCTION IMPLEMTATION, USE INSTEAD ARRAY OF BOOL INDEXED BY RANDOM NUMBER!!!!!!!!
+#define SIZE 32
+#define STATIC_CAPACITY 64
 
 typedef struct element{
     unsigned int *key;
+    bool duplicated;
 } element_t;
 
 typedef struct hash_table{
@@ -17,7 +17,7 @@ typedef struct hash_table{
 
 unsigned int hash_function(unsigned int x);
 hash_table_t* ht_init(void);
-bool ht_look_up(hash_table_t *table, unsigned int key);
+void ht_insert(hash_table_t *table, unsigned int key);
 
 int main(void)
 {
@@ -26,66 +26,69 @@ int main(void)
     //unique seed value
     srand(time(NULL));
 
+    //initialize two hash tables
     hash_table_t *seen = ht_init();
-    hash_table_t *dups = ht_init();
 
+    printf("Original Numbers:\n");
     for(int i = 0; i < SIZE; i++)
     {
-        numbers[i] = rand() % 1024 + 1;
+        numbers[i] = (rand() % SIZE) + 1;
+        printf("%d, ", numbers[i]);
     }
 
     for(int i = 0; i < SIZE; i++)
-    {
-        if(ht_look_up(seen, numbers[i]))
-            ht_look_up(dups, numbers[i]);
-    }
+        ht_insert(seen, numbers[i]); //Check if seen, if not store new value
 
+    printf("\n\nDuplicates:\n");
+    for(int i = 0; i < STATIC_CAPACITY; i++)
+    {
+        if(seen->elements[i].duplicated)
+            printf("%u, ", *seen->elements[i].key);
+    }
     exit(0);
 }
 
 hash_table_t* ht_init(void)
 {
+    //allocate memory for table and spaces
     hash_table_t *table = malloc(sizeof (hash_table_t));
     if(table == NULL)
-        return NULL;
+        exit(1);
 
     table->elements = calloc(STATIC_CAPACITY, sizeof(element_t));
     if(table->elements == NULL)
-    {
-        free(table);
-        return NULL;
-    }
+        exit(1);
     return table;
 }
 
-bool ht_look_up(hash_table_t *table, unsigned int key)
+void ht_insert(hash_table_t *table, unsigned int key)
 {
-    unsigned int index = hash_function(key);
+    unsigned int index = hash_function(key); //generate hash value
 
     //loop until key is found
     while (table->elements[index].key != NULL) {
-        if(key == *(table->elements[index].key))
+        if (key == *(table->elements[index].key))
         {
-            return true;
+            table->elements[index].duplicated = true; //Set duplicate marker to true
+            return;
         }
         //Using linear probing
         index++;
 
         //reached end of table, loop to beginning
         if(index >= STATIC_CAPACITY)
-        {
             index = 0;
-        }
     }
 
+    //set new entry
     unsigned int *seen_elm = malloc(sizeof(int));
     table->elements[index].key = seen_elm;
     *table->elements[index].key = key;
-
-    return false;
+    table->elements[index].duplicated = false;
 }
 
-unsigned int hash_function(unsigned int x) {
+unsigned int hash_function(unsigned int x) //generate hash values
+{
     x = ((x >> 16) ^ x) * 0x45d9f3b;
     x = ((x >> 16) ^ x) * 0x45d9f3b;
     x = ((x >> 16) ^ x) % STATIC_CAPACITY;

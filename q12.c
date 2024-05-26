@@ -9,7 +9,7 @@ int main(void)
     //unique seed value
     srand(time(NULL));
 
-    int n = (rand() % 127) + 2;
+    int n = (rand() % 32) + 2;
 
     unsigned long long int sum = sumFibonacci(n);
 
@@ -27,13 +27,12 @@ unsigned long long int sumFibonacci(int i)
 
     if(i >= 2) {
         for (int j = 2; j < i; j++) {
-            z = x + y;
+            z = x + y; // calculate value in fib sequence
             x = y;
             y = z;
-            sum += z;
+            sum += z; // sum up fib numbers
         }
         return sum;
     }
-
     return 0;
 }

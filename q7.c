@@ -12,33 +12,29 @@ int main(void)
     if (!fptr)
         perror("fopen");
 
+    //Initialize original row
     for(int i = 2; i <= 512; i++)
-    {
         output[i-2] = i;
-    }
 
-    while(flag == true)
+    while(flag == true) //Until no numbers other than 1 found
     {
         flag = false;
         for(int i = 2; i <= 512; i++)
         {
+            //display row
             if(i != 512)
-            {
                 fprintf(fptr, "%d, ", output[i-2]);
-            }
-            else
-            {
+            else //end of row
                 fprintf(fptr,"%d", output[i-2]);
-            }
 
             if(output[i-2] != 1)
             {
-                if(output[i-2] % 2 == 0)
+                if(output[i-2] % 2 == 0) //even case
                 {
                     output[i-2] /= 2;
                     flag = true;
                 }
-                else
+                else //odd case
                 {
                     output[i-2] = (3 * output[i-2]) + 1;
                     flag = true;

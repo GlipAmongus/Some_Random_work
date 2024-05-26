@@ -1,121 +1,62 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
-#include <ctype.h>
 
 long double newtonRaphson(long double xn_minus_1, long double n);
 char cliValidation(void);
-long double longd_validation(void);
 
 int main(void)
 {
     char cli;           //User iterated Newton Raphson
-
-    long double n; // n - number to find square root of
-    long double x; // x - initial guess
+    long double n = 3.5; // n - number to find square root of
+    long double x = 100;  // x - initial guess
     int i = 0; // i - number of iterations
 
-    printf("'q' - quit or 'SPACE' - iterate\n");
-    printf("\nInput number to find square root of: ");
-    n = longd_validation();
-    printf("\nInitial Guess: ");
-    x = longd_validation();
+    printf("'q' - quit or 'ENTER' - iterate\n");
+    printf("\nInput number to find square root of: %Lf", n);
+    printf("\nInitial Guess: %Lf\n", x);
 
-    do
-    {
+    do {
         x = newtonRaphson(x, n);
-
         printf("Iteration %d: %Lf", i, x);
-
+        cli = cliValidation(); //ask user to continue or terminate
         i++;
-        cli = cliValidation();
     } while(cli != 'q');
-
     exit(0);
 }
 
 long double newtonRaphson(long double xn_minus_1, long double n)
 {
     long double xn;
-
+    //calculate f(x) = x^2 - n, f'(x) = 2x
     long double f_x = (xn_minus_1)*(xn_minus_1) - n;
     long double f_x_prime = 2*xn_minus_1;
 
-    if(f_x_prime == 0)
+    if(f_x_prime == 0) //divide by zero error
     {
-        printf("Denominator is 0");
-        return xn_minus_1;
+        printf("Denominator is 0\n");
+        exit(1);
     }
 
+    //Newton Raphson method: xn = xn_minus_1 - f(x)/f'(x)
     xn = xn_minus_1 - (f_x / f_x_prime);
-
     return xn;
-}
-
-long double longd_validation(void)
-{
-    long double input;
-    char buffer[128];
-    int len;
-    int decimal_count;
-
-    bool validation;
-
-    do
-    {
-        validation = true;
-        decimal_count = 0;
-
-        fgets(buffer, sizeof(buffer), stdin);
-        len = strlen(buffer);
-
-        while(len > 0 && isspace(buffer[len - 1]))
-        {
-            len --;
-        }
-        if(len > 0)
-        {
-            validation = true;
-
-            for (int i = 0; i < len; i++)
-            {
-                if(buffer[i] == '.')
-                    decimal_count++;
-
-                if((!isdigit(buffer[i])) && buffer[i] != '.' || decimal_count > 1)
-                {
-                    printf("Error: Invalid type. Long Double expected:");
-                    validation = false;
-                    break;
-                }
-            }
-        }
-
-        // When valid convert back to long double
-        if(validation)
-            input = atof(buffer);
-
-    }while(!validation);
-
-    return input;
 }
 
 char cliValidation(void)
 {
     char ch;
-
-    ch = getchar();
-    while(ch != '\n' && ch != 'q')
-    {
-        //empty buffer
-        while((ch = getchar()) != '\n')
+    bool valid;
+    do {
+        valid = true;
+        ch = getchar();
+        while (ch != '\n' && ch != 'q') //error case if 'q' or 'ENTER'
         {
-            putchar(ch);
+            while ((ch = getchar()) != '\n')//empty buffer
+                putchar(ch);
+            printf("\nError: Invalid character. 'q' or 'ENTER' accepted\n");
+            valid = false;
         }
-
-        printf("Error: Invalid character. 'q' or 'ENTER' accepted\n");
-    }
-
+    }while(!valid);
     return ch;
 }

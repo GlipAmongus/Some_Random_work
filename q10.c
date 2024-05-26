@@ -6,17 +6,20 @@ int max(int arr[], int n);
 
 int main(void)
 {
-    const int N = 256;
+    const int N = 32;
 
     //unique seed value
     srand(time(NULL));
 
     int array_n[N];
+
+    printf("Array of numbers:\n");
     for(int i = 0; i < N; i++)
     {
-        array_n[i] = rand() % 1024 + 1;
+        array_n[i] = rand() % N + 1;
+        printf("%d, ", array_n[i]);
     }
-    printf("%d", max(array_n, N-1));
+    printf("\nLargest number: %d", max(array_n, N-1));
 
     exit(0);
 }
@@ -24,11 +27,11 @@ int main(void)
 int max(int arr[], int n)
 {
     int temp;
-    if(n == 1)
+    if(n == 1) //base case
         return arr[0];
-    if(arr[n] > (temp = max(arr, n-1)))
+    if(arr[n] > (temp = max(arr, n-1))) //recursive call with array size -1
     {
-        return arr[n];
+        return arr[n]; //larger number found
     }else{
         return temp;
     }

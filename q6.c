@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 bool prime_boolean(int n);
-void seiveEratosthene(int capacity);
+void sieveEratosthene(int capacity);
 
 int main(void)
 {
@@ -18,8 +18,8 @@ int main(void)
             printf("%d, ", i);
     }
 
-    printf("\nSeive of Erastosthene: \n");
-    seiveEratosthene(N);
+    printf("\nSieve of Eratosthene: \n");
+    sieveEratosthene(N);
 
     exit(0);
 }
@@ -36,7 +36,7 @@ bool prime_boolean(int n)
     return true;
 }
 
-void seiveEratosthene(int capacity)
+void sieveEratosthene(int capacity)
 {
     bool prime[capacity];
     memset(prime, true, capacity);
@@ -45,13 +45,9 @@ void seiveEratosthene(int capacity)
         if(prime[p-1]){
             //marking multiples of prime numbers
             for(int i = p*p; i <= capacity; i += p)
-            {
-                /*
-                 * check through multiples of p at p^2 or greater
-                 * since multiples of p smaller than p^2 have already been checked
-                 * */
+                /* check through multiples of p at p^2 or greater
+                 * since multiples of p smaller than p^2 have already been checked */
                 prime[i-1] = false;
-            }
         }
     }
     for(int p = 2; p <= capacity; p++)
